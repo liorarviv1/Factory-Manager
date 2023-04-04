@@ -2,7 +2,6 @@
 <script>
     async function showEmployee()
     {
-        //111
         document.getElementById("nameUser").innerText=localStorage.getItem("Full name user")
         let resp = await fetch("https://localhost:44320/api/DepartmentWithEmployee")
         let dataDepartmentEmps=await resp.json();
