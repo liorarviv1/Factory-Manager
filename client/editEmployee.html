@@ -1,0 +1,154 @@
+<html>
+<script>
+    async function updateEmp()
+    {
+        document.getElementById("nameUser").innerText=localStorage.getItem("Full name user")
+
+        const params = new URLSearchParams(location.search);
+        let empid= params.get("empid");
+        // alert(id)
+
+        let resp = await fetch("https://localhost:44320/api/DepartmentWithEmployee")
+        let dataDepartmentEmps=await resp.json();
+
+        let sel = document.getElementById("sel")
+
+        let resp2 = await fetch("https://localhost:44320/api/EmpWhithShift")
+        let dataEmpShift=await resp2.json();
+        
+        dataDepartmentEmps.forEach(dde=>{
+            for(let m=0; m<dde.EmployeesDep.length;m++)
+            {
+                if(dde.EmployeesDep[m].ID==empid)
+                {
+                    document.getElementById("cdname").innerText=dde.Name
+                    // document.getElementById("newdep").value=dde.EmployeesDep[m].DepartmentID
+                }
+            }
+        })
+
+        dataEmpShift.forEach(es=>{
+            
+                if(es.EmployeeID==empid)
+                {
+                    for(let j=0; j<es.EmployeeInfo.length;j++)
+                    {
+                        // alert(es.EmployeeID)
+                        document.getElementById("fname").value=es.EmployeeInfo[j].FirstName
+                        document.getElementById("lname").value=es.EmployeeInfo[j].LastName
+                        document.getElementById("swy").value=es.EmployeeInfo[j].StartWorkYear
+                        document.getElementById("newdep").value=es.EmployeeInfo[j].DepartmentID
+                    }
+                }
+        })
+        dataDepartmentEmps.forEach(dep => {
+                        for(let i=0; i<=dep.EmployeesDep.length;i++)
+                        {
+                            // debugger
+                            let op=document.createElement("option")
+                            op.innerText=dep.Name
+                            op.value=dep.ID
+                            sel.appendChild(op)
+                            break
+                        }
+                        });
+        countUserActions()
+    }    
+    function dep11()
+        {
+            var x = document.getElementById("sel").value;
+            document.getElementById("newdep").value=x
+        }
+
+        async function updateEmployee()
+        {
+            const params = new URLSearchParams(location.search);
+            let empid= params.get("empid");
+
+            let resp2 = await fetch("https://localhost:44320/api/EmpWhithShift")
+            let dataEmpShift=await resp2.json();
+
+            // var idInEmpShift=0;
+        
+            dataEmpShift.forEach(async des=>{
+
+                if(des.EmployeeID==empid)
+                {
+                    // idInEmpShift=des.ID
+                    let obj={"FirstName" : document.getElementById("fname").value,
+                            "LastName" : document.getElementById("lname").value,
+                            "StartWorkYear" : document.getElementById("swy").value,
+                            "DepartmentID" : document.getElementById("newdep").value
+                            };
+
+                        let fetchParams = { method  : 'PUT',
+                                            body : JSON.stringify(obj),                        
+                                        headers : {'Content-Type' : 'application/json'}
+                                    };
+                    let resp = await fetch("https://localhost:44320/api/EmpWhithShift/"+empid,fetchParams)
+                    let status=await resp.json()
+                    
+                    window.location.href="employee.html" 
+                }
+                
+                // countUserActions()
+
+            })
+            alert("Employee update")
+        }
+
+
+    function GoTOHomePage()
+    {
+        window.location.href="homePage.html"
+        countUserActions()
+    }
+    function logout()
+    {
+        window.location.href="login.html"
+        countUserActions()
+    }
+</script>
+
+<body onload="updateEmp()">
+    <div class="background2" align="center" style="color: aliceblue;">
+    
+        <div>
+            <div style="float: left">
+                <button onclick="GoTOHomePage()" class="btn btn-primary">Go to home page</button>
+            </div>
+            <div style="float: right" >
+                <button onclick="logout()"class="btn btn-danger" >Logout</button>
+            </div>
+        </div><br> <br>
+    
+        <h1 style="color: black;" id="nameUser"></h1>
+
+    First name:<input type="text" id="fname" class="form-control" style="width: 200px"><br>
+    Last name:<input type="text" id="lname" class="form-control" style="width: 200px"><br>
+    Start Work Year: <input type="text" id="swy" class="form-control" style="width: 200px"><br>
+    Current department: <span id="cdname">Current department!!!!</span><br>
+    Department : <select onchange="dep11()" name="nameDep" id="sel">
+                    <option>Select a department </option>
+                </select><br>
+    
+    Department ID: <input type="text" id="newdep" readonly class="form-control" style="width: 200px"><br>
+
+    <button onclick="updateEmployee()" class="btn btn-success">Update employee</button>
+    
+</div>
+</body>
+
+<head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    /> 
+    <link rel="stylesheet" href="ZDesign.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <script src="userActions.js"></script>
+
+
+</head>
+</html>

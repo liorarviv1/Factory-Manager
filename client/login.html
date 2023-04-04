@@ -1,0 +1,119 @@
+<html>
+<script>
+function saveNameUser(UserFullName)
+{
+    localStorage.setItem("Full name user",UserFullName)
+}
+
+function saveUserActions(countactions)
+{
+    localStorage.setItem("count actions",countactions)
+}
+
+function saveUserID(userid)
+{
+    localStorage.setItem("user ID",userid)
+}
+
+function saveTheDate(dayis)
+{
+    localStorage.setItem("date is",dayis)
+}
+
+    async function GoTOHomePage() 
+    {
+        let resp = await fetch("https://localhost:44320/api/User")
+        let dataUser=await resp.json();
+        // console.table(dataUser)
+        
+        let userName1=document.getElementById("userName").value
+        let pasword1=document.getElementById("password").value
+
+         dataUser.forEach( async user => {
+            if(user.UserName==userName1&&user.Password==pasword1)
+            {
+                // alert(user.NumOfActions-1)
+                saveUserActions(user.NumOfActions)
+                saveUserID(user.ID)
+
+                var today = new Date();
+                var date = today.getDate();
+                saveTheDate(date)
+                if(user.NumOfActions>0 && user.DailyActions==date)
+                {
+                    let severalActions=localStorage.getItem("count actions")-1
+                    localStorage.setItem("count actions",severalActions)
+                    
+                    let obj={"NumOfActions" : localStorage.getItem("count actions"),
+                             "DailyActions" : date
+                            };
+                        
+                        let fetchParams = { method  : 'PUT',
+                                            body : JSON.stringify(obj),                        
+                                        headers : {'Content-Type' : 'application/json'}
+                        };
+
+                        let resp = await fetch("https://localhost:44320/api/User/"+user.ID,fetchParams)
+                        let status=await resp.json(); 
+                        // alert(status)
+
+                    window.location.href ="homePage.html";
+                    saveNameUser(user.FullName)
+                    // saveUserActions(user.NumOfActions)
+                }
+                else if(user.DailyActions!=date)
+                {
+                
+                    let obj={"NumOfActions" : 29,
+                            "DailyActions":date};
+                        
+                        let fetchParams = { method  : 'PUT',
+                                            body : JSON.stringify(obj),                        
+                                        headers : {'Content-Type' : 'application/json'}
+                        };
+
+                        let resp = await fetch("https://localhost:44320/api/User/"+localStorage.getItem("user ID"),fetchParams)
+                        let status=await resp.json();
+
+                        window.location.href ="homePage.html";
+                        saveNameUser(user.FullName)
+                }
+                else
+                {
+                    alert("You have exceeded the amount of operations for that day, please try again the next day")
+                }
+            }
+            else
+            {
+                let h3=document.getElementById("per")
+                return h3.innerText="Check the username or password if you have not received any other message from the system."
+            }
+        });
+    }
+</script>
+
+
+<body>
+    <div class="background2" align="center"> <br>
+
+    <h1 align="center" style="color: rgb(0, 0, 0);" >Welcome to "Factory" website</h1>
+       <p style="font-size: 25px; color: black;">user name:</p> <input type="text" class="form-control" style="width: 200px;" id="userName">
+       <p style="font-size: 25px; color: black;">password:</p> <input type="password" id="password" class="form-control" style="width: 200px;" id="userName"><br>
+        <h3 id="per" style="color: red; background-color: aliceblue; width: 400;"></h3>
+        <button onclick="GoTOHomePage()" class="btn btn-success"> login</button>
+</div>
+
+    
+</body>
+
+<head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    /> 
+    <link rel="stylesheet" href="ZDesign.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <script src="userActions.js"></script>
+</head>
+</html>

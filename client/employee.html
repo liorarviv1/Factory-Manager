@@ -1,0 +1,213 @@
+<html>
+<script>
+    async function showEmployInfo()
+    {
+        document.getElementById("nameUser").innerText=localStorage.getItem("Full name user")
+
+        let resp = await fetch("https://localhost:44320/api/DepartmentWithEmployee")
+        let dataDepartmentEmps=await resp.json();
+
+        let resp2 = await fetch("https://localhost:44320/api/EmpWhithShift")
+        let dataEmpShift=await resp2.json();
+
+        let tbody=document.getElementById("tbody")
+        tbody.innerText="";
+
+        dataEmpShift.forEach(es => { //DE== Department Employee לשייך כל עובד למחלקה שלו
+            
+            for(let i=0; i<es.EmployeeInfo.length;i++)
+            {
+                let tr=document.createElement("tr")
+                let tdEmpFName=document.createElement("td")
+                let tdStarWork=document.createElement("td")
+                let tdShift=document.createElement("td")
+               
+                let tdupdate=document.createElement("td")
+                let tddelete=document.createElement("td")
+                let tdaddshift=document.createElement("td")
+
+                let au=document.createElement("a")
+                au.href="editEmployee.html?empid="+es.EmployeeInfo[i].ID
+                au.innerText="update"
+
+                let aaddshift=document.createElement("a")
+                aaddshift.href="employeeAddShift.html?empid="+es.EmployeeInfo[i].ID
+                aaddshift.innerText="Add shift"
+
+                let buttonDelete=document.createElement("button")
+                buttonDelete.value=es.EmployeeInfo[i].ID
+                buttonDelete.onclick=function() {deletEep(buttonDelete.value)}
+                buttonDelete.innerText= "Delete employee"
+
+                let tdDepName=document.createElement("td")
+                // let tdDepName=document.createElement("td")
+
+                tdEmpFName.innerText=es.EmployeeInfo[i].FirstName+" "+es.EmployeeInfo[i].LastName
+                tdStarWork.innerText=es.EmployeeInfo[i].StartWorkYear
+                
+                // tdDepName.innerText=es.Name
+
+                for(let j=0;j<es.ShiftInfo.length;j++)
+                {
+                    let ul=document.createElement("ul")
+                    let lis=document.createElement("li")
+                    let lie=document.createElement("li")
+                    
+                    ul.innerText=es.ShiftInfo[j].Date
+                    lis.innerText="Start: "+es.ShiftInfo[j].StartTime
+                    lie.innerText="End: "+es.ShiftInfo[j].EndTime
+                    ul.appendChild(lis)
+                    ul.appendChild(lie)
+                    tdShift.appendChild(ul)
+                }
+                dataDepartmentEmps.forEach(de=>{
+                    // debugger
+                    for(let k=0;k<de.EmployeesDep.length;k++)
+                        {
+                            if(es.EmployeeInfo[i].ID==de.EmployeesDep[k].ID)
+                            {
+                                tdDepName.innerText=de.Name
+
+                                // tdDepName.innerText=de.EmployeesDep[k].DepartmentID+") "+de.Name
+                                // console.log(de.Name)
+                                // break
+                            }
+                        // break
+                        }
+                })
+
+                tr.appendChild(tdDepName)
+                tr.appendChild(tdEmpFName)
+                
+                tr.appendChild(tdStarWork)
+                tr.appendChild(tdShift)
+
+                tdaddshift.appendChild(aaddshift)
+                tr.appendChild(tdaddshift)
+
+                tdupdate.appendChild(au)
+                tr.appendChild(tdupdate)
+                
+                tddelete.appendChild(buttonDelete)
+                tr.appendChild(tddelete)
+
+                tbody.appendChild(tr)
+            }
+        })
+
+        async function deletEep(id)
+        {
+            // alert(id)
+            let fetchParams = { method  : 'DELETE',                        //ככה מוחקים
+                                headers : {'Content-Type' : 'application/json'}
+                            };
+            let resp = await fetch("https://localhost:44320/api/EmpWhithShift/"+id,fetchParams)
+            let status=await resp.json()
+            alert(status)
+            showEmployInfo()
+
+        }
+        dataDepartmentEmps.forEach(dep => {
+                
+                let op=document.createElement("option")
+                op.innerText=dep.ID+") "+dep.Name
+                op.value=dep.ID
+                sel.appendChild(op)
+                // console.log(op.va    
+            });
+        countUserActions()
+    }
+    
+    function dep11()
+        {
+            var x = document.getElementById("sel").value;
+            document.getElementById("search").value=x
+        }
+    
+    async function searchInfo()
+    {
+        localStorage.setItem("infoSearch",document.getElementById("search").value)
+
+        window.location.href="employeeSearch.html"
+        countUserActions()
+        
+    }
+
+    function idDep()
+    {
+        iddep = document.getElementById("sel").value;
+        // alert(iddep)
+    }
+var iddep=0;
+
+function GoTOHomePage()
+    {
+        window.location.href="homePage.html"
+        countUserActions()
+    }
+    function logout()
+    {
+        window.location.href="login.html"
+        countUserActions()
+    }
+
+</script>
+
+
+<body onload="showEmployInfo()">
+
+<div class="background2" align="center" >
+    
+    <div>
+        <div style="float: left">
+            <button onclick="GoTOHomePage()" class="btn btn-primary">Return to the previous page</button>
+        </div>
+        <div style="float: right" >
+            <button onclick="logout()"class="btn btn-danger" >Logout</button>
+        </div>
+    </div><br> <br>
+
+    <h1 style="color: black;" id="nameUser"></h1>
+ 
+
+    <p style="color: aliceblue;">
+        Search information by first name, family name or department id:
+    </p>
+    <p style="color: aliceblue;">
+        You can select the department to search:
+        <select name="" id="sel" onchange="dep11()">
+            <option>ID) Department</option>
+        </select>
+    </p>
+    <input type="text" id="search" class="form-control" style="width: 200px">
+    <button onclick="searchInfo()"  class="btn btn-success">Search</button><br><br>
+
+
+    <table class="table table-hover" border="5" style="background-color: aliceblue;">
+        <tr>
+            <th>ID) Department name</th>
+            <th>Employee full name</th>
+            <th>StartWorkYear</th>
+            <th>Employee shift</th>
+            <th>Add shift Employee</th>
+            <th>Update Employee</th>
+            <th>Delete Employee</th>
+            
+            <tbody id="tbody"></tbody>
+
+        </tr>
+    </table>
+</div>
+</body>
+
+<head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    /> 
+    <link rel="stylesheet" href="ZDesign.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <script src="userActions.js"></script>
+</head>
+</html>

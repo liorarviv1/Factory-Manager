@@ -1,0 +1,91 @@
+<html>
+<script>
+    function showName()
+    {
+        document.getElementById("nameUser").innerText=localStorage.getItem("Full name user")
+        countUserActions()
+    }
+
+    async function AddShift()
+    {
+        var date1=document.getElementById("date").value
+        var Stime=document.getElementById("stime").value
+        var Etime=document.getElementById("etime").value
+
+        if(date1!==""&&Stime!==""&&Etime!=="")
+        {
+            let obj={"Date" : document.getElementById("date").value,
+                    "StartTime" : document.getElementById("stime").value,
+                    "EndTime" : document.getElementById("etime").value,
+            };
+
+            let fetchParams = { method  : 'POST',
+                                body : JSON.stringify(obj),                        
+                            headers : {'Content-Type' : 'application/json'}
+            };
+            let resp = await fetch("https://localhost:44320/api/Shift",fetchParams)
+            let status=await resp.json()
+            
+                
+            alert("The shift has been successfully added. The ID of the shift is: "+status)
+            // window.location.href="employee.html"
+            countUserActions()
+        }
+        else
+        {
+            alert("To add a shift you must fill in all the details.")
+        }
+
+    }
+
+    function GoTOHomePage()
+    {
+        window.location.href="homePage.html"
+        countUserActions()
+    }
+    function logout()
+    {
+        window.location.href="login.html"
+        countUserActions()
+    }
+
+</script>
+
+<body onload="showName()">
+    <div class="background2" align="center" style="color: aliceblue;">
+
+    <div>
+        <div style="float: left">
+            <button onclick="GoTOHomePage()" class="btn btn-primary">Go to home page</button>
+        </div>
+        <div style="float: right" >
+            <button onclick="logout()"class="btn btn-danger" >Logout</button>
+        </div>
+    </div><br> <br>
+
+    <h1 style="color: black;" id="nameUser"></h1>
+
+
+
+    <h3>Add shift</h3>
+    Date: <input type="date" id="date"> <br>
+    Start time: <input type="time" id="stime"><br>
+    End time: <input type="time" id="etime"><br>
+    <button onclick="AddShift()" class="btn btn-success">Add shift</button>
+
+
+</div>
+</body>
+
+<head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    /> 
+    <link rel="stylesheet" href="ZDesign.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <script src="userActions.js"></script>
+
+</head>
+</html>

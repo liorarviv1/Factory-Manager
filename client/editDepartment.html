@@ -1,0 +1,150 @@
+<html>
+<script>
+    async function editDepartment()
+    {
+        document.getElementById("nameUser").innerText=localStorage.getItem("Full name user")
+        const params = new URLSearchParams(location.search);
+        let id= params.get("idD");
+        // alert(id)
+        let resp = await fetch("https://localhost:44320/api/DepartmentWithEmployee/"+id)
+        let dataDepartmentEmps=await resp.json();
+        console.table(dataDepartmentEmps)
+
+        document.getElementById("oldnamedep").innerText=dataDepartmentEmps.Name
+        document.getElementById("newnamedep").value=dataDepartmentEmps.Name
+        var arremp=dataDepartmentEmps.EmployeesDep
+        console.table(arremp)
+
+        let sel=document.getElementById("sel")
+        if(arremp.length===0)
+        {
+            document.getElementById("p1").innerText="To add employees/manager to a new department, you will need to change the employee's department in the Employee table."
+            // document.getElementById('btn').style.visibility = 'hidden'   
+        }
+        else
+        {
+            arremp.forEach(em => {
+                if(em.ID==dataDepartmentEmps.ManagerID)
+                {
+                    document.getElementById("mangername").innerText=em.FirstName+" "+em.LastName
+                    // console.log(em.FirstName)
+
+                    let op=document.createElement("option")
+                    op.innerText="Manger employee: "+em.FirstName+" "+em.LastName
+                    op.value=em.ID
+                    sel.appendChild(op)
+                }
+            });
+        }
+
+        arremp.forEach(em => {
+        if(em.ID!=dataDepartmentEmps.ManagerID)
+            {
+                let op=document.createElement("option")
+                op.innerText=em.FirstName+" "+em.LastName
+                op.value=em.ID
+                sel.appendChild(op)
+            }
+        });
+        countUserActions()
+    }
+
+    function newManager()
+    {
+        managerID = document.getElementById("sel").value
+        // console.log(managerID)
+    }
+    var managerID;
+
+    async function uptadeDep()
+    {
+            document.getElementById("nameUser").innerText=localStorage.getItem("Full name user")
+            const params = new URLSearchParams(location.search);
+            let id= params.get("idD");
+
+            let resp1 = await fetch("https://localhost:44320/api/DepartmentWithEmployee/"+id)
+            let dataDepartmentEmps=await resp1.json();
+
+            // console.log(dataDepartmentEmps.EmployeeAmount)
+            // console.log(managerID)
+
+            if(document.getElementById("sel").value==managerID||dataDepartmentEmps.EmployeesDep.length==0)
+            {
+
+            let obj={"Name" : document.getElementById("newnamedep").value,
+                    "EmployeeAmount":dataDepartmentEmps.EmployeeAmount,
+                        "ManagerID" : managerID,
+                };
+
+                let fetchParams = { method  : 'PUT',
+                                    body : JSON.stringify(obj),                        
+                                headers : {'Content-Type' : 'application/json'}
+                };
+
+            let resp = await fetch("https://localhost:44320/api/DepartmentWithEmployee/"+id,fetchParams)
+            let status=await resp.json(); 
+            alert(status)
+            window.location.href="department.html"
+            countUserActions()
+        }
+        else
+        {
+            alert("Select an manager")
+        }
+    }
+
+    function GoTOHomePage()
+    {
+        window.location.href="homePage.html"
+        countUserActions()
+    }
+    function logout()
+    {
+        window.location.href="login.html"
+        countUserActions()
+    }
+</script>
+
+<body onload="editDepartment()">
+  
+<div class="background2" align="center" >
+
+    <div>
+        <div style="float: left">
+            <button onclick="GoTOHomePage()" class="btn btn-primary">Go to home page</button>
+        </div>
+        <div style="float: right" >
+            <button onclick="logout()"class="btn btn-danger" >Logout</button>
+        </div>
+    </div>
+    <br> <br>
+    <h1 style="font-size: 50px; color:rgb(41, 11, 48);">Edit department</h1>
+
+    <h1 style="color: black;" id="nameUser"></h1>
+
+    <div style="color: aliceblue;">
+    Name of department: <span id="oldnamedep">wdwd</span><br><br>
+    The department manager name is: <span id="mangername" ></span><br> <br>
+    The new name of department:<input type="text" id="newnamedep" class="form-control" style="width: 200px"><br>
+    The name of the new manager for the department: <select onchange="newManager()" name="" id="sel"
+     class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"style="width: 350px">
+        <option>Select manager</option>
+    </select>
+    <p id="p1"></p>
+    </div>
+    <button onclick="uptadeDep()" id="btn" class="btn btn-success">Update department</button>
+</div>
+</body>
+
+<head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    /> 
+    <link rel="stylesheet" href="ZDesign.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <script src="userActions.js"></script>
+    
+</head>
+</html>

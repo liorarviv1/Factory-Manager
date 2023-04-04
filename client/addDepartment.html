@@ -1,0 +1,147 @@
+<html>
+<script>
+    async function showEmployee()
+    {
+        document.getElementById("nameUser").innerText=localStorage.getItem("Full name user")
+        let resp = await fetch("https://localhost:44320/api/DepartmentWithEmployee")
+        let dataDepartmentEmps=await resp.json();
+
+        let sel = document.getElementById("sel")
+        dataDepartmentEmps.forEach(emp => {
+
+        for(let i=0; i<emp.EmployeesDep.length;i++)
+        {
+            if( emp.EmployeesDep[i].ID !=emp.ManagerID )
+            {
+            let op=document.createElement("option")
+            op.innerText=emp.EmployeesDep[i].FirstName+" "+emp.EmployeesDep[i].LastName
+            op.value=emp.EmployeesDep[i].ID
+            op.id=emp.EmployeesDep[i].ID
+            sel.appendChild(op)
+            // console.log(op.value)
+            }
+
+        }
+            
+        });
+    }
+    async function showEmp()
+    {
+        let idEmp=document.getElementById("sel").value
+        // console.log(idEmp)
+
+        let resp = await fetch("https://localhost:44320/api/DepartmentWithEmployee")
+        let dataDepartmentEmps=await resp.json();
+
+        dataDepartmentEmps.forEach(DEmp => {
+
+            for(let i=0;i<DEmp.EmployeesDep.length;i++)
+            {
+                if(DEmp.EmployeesDep[i].ID==idEmp) 
+                {
+                    document.getElementById("fnameEmp").value=DEmp.EmployeesDep[i].FirstName
+                    document.getElementById("lnameEmp").value=DEmp.EmployeesDep[i].LastName
+                    document.getElementById("startWorkEmp").value=DEmp.EmployeesDep[i].StartWorkYear
+
+                }
+            }
+        });
+    }
+
+    async function AddOnlyDepartment()
+    {
+        if(document.getElementById("newNameDep").value!="")
+        {
+
+            let DepObj={"Name":document.getElementById("newNameDep").value,
+                       "EmployeeAmount":0
+                    //    "ManagerID":null
+                        }
+            let fetchParams = { method  : 'POST',                        
+                            body : JSON.stringify(DepObj),
+                            headers : {'Content-Type' : 'application/json'}
+                    };
+            let resp = await fetch("https://localhost:44320/api/DepartmentWithEmployee",fetchParams)
+            let status=await resp.json()
+            alert(status)
+            window.location.href="department.html"
+        }
+        else
+        {
+            alert("It is not possible to add a department without a name.")
+        }
+
+    }
+
+
+
+    async function AddDepartment()
+    {
+        let idEmp=document.getElementById("sel").value
+        // console.log(idEmp)
+
+        if(document.getElementById("op").value!=null)
+        {
+            console.log(idEmp)
+        }
+        else
+        {
+            console.log("by")
+        }
+
+    }
+
+    function GoTOHomePage()
+    {
+        window.location.href="homePage.html"
+        countUserActions()
+    }
+    function logout()
+    {
+        window.location.href="login.html"
+        countUserActions()
+    }
+
+
+</script>
+
+
+
+<body onload="showEmployee()">
+<div class="background2"  align="center">
+    <div>
+        <div style="float: left">
+            <button onclick="GoTOHomePage()" class="btn btn-primary">Go to home page</button>
+        </div>
+        <div style="float: right" >
+            <button onclick="logout()"class="btn btn-danger" >Logout</button>
+        </div>
+    </div> <br><br>
+
+
+
+    <h1 style="color: black;" id="nameUser"></h1>
+    
+    <div style="color: aliceblue;">
+        The name of the new department: <input type="text" id="newNameDep"> <br><br>
+        Add department 
+        <button onclick="AddOnlyDepartment()"class="btn btn-success">Add only department</button><br> <br>
+
+
+    </div>
+</div>
+
+</body>
+
+<head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    /> 
+    <link rel="stylesheet" href="ZDesign.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <script src="userActions.js"></script>
+
+</head>
+</html>

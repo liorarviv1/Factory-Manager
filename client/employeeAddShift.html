@@ -1,0 +1,141 @@
+<html>
+<script>
+    async function addShiftEmployee()
+    {
+        document.getElementById("nameUser").innerText=localStorage.getItem("Full name user")
+
+        const params = new URLSearchParams(location.search);
+        let empid= params.get("empid");
+
+        let resp = await fetch("https://localhost:44320/api/DepartmentWithEmployee")
+        let dataDepartmentEmps=await resp.json();
+
+        let resp2 = await fetch("https://localhost:44320/api/EmpWhithShift")
+        let dataEmpShift=await resp2.json();
+
+        let resp3 = await fetch("https://localhost:44320/api/Shift")
+        let dataShift=await resp3.json();
+
+        let sel=document.getElementById("sel")
+
+        dataDepartmentEmps.forEach(dde=>{
+            for(let m=0; m<dde.EmployeesDep.length;m++)
+            {
+                if(dde.EmployeesDep[m].ID==empid)
+                {
+                    document.getElementById("cdname").innerText=dde.Name
+                    // document.getElementById("newdep").value=dde.EmployeesDep[m].DepartmentID
+                }
+            }
+        })
+
+        dataEmpShift.forEach(es=>{
+            
+                if(es.EmployeeID==empid)
+                {
+                    for(let j=0; j<es.EmployeeInfo.length;j++)
+                    {
+                        // alert(es.EmployeeID)
+                        document.getElementById("fname").value=es.EmployeeInfo[j].FirstName
+                        document.getElementById("lname").value=es.EmployeeInfo[j].LastName
+                        document.getElementById("swy").value=es.EmployeeInfo[j].StartWorkYear
+                    }
+                }
+        })
+        dataShift.forEach(sh=>{
+            // debugger
+            let op=document.createElement("option")
+            for(let i=0;i<dataEmpShift.length;i++)
+            { 
+             
+                op.innerText=(sh.ID+")")+ sh.Date+" |start time: "+sh.StartTime+" |end time: "+sh.EndTime
+                op.value=sh.ID
+                op.id=sh.ID
+                sel.appendChild(op)
+            }
+        })
+        countUserActions()
+    }
+
+    async function AddShift()
+    {
+        const params = new URLSearchParams(location.search);
+        let empid= params.get("empid");    
+
+        let obj1={"EmployeeID" : empid,
+                    "ShiftID" : idShift
+            };
+            let fetchParams1 = { method  : 'POST',
+                                body : JSON.stringify(obj1),                        
+                            headers : {'Content-Type' : 'application/json'}
+            };
+        let resp1 = await fetch("https://localhost:44320/api/EmployeeShift",fetchParams1)
+        let status=await resp1.json()
+        // alert(status)
+            
+        alert("The shift has been added to the employee")
+        window.location.href="employee.html"
+        countUserActions()
+    }
+    function idShif()
+    {
+        idShift = document.getElementById("sel").value;
+        // alert(idShift)
+    }
+var idShift;
+
+    function GoTOHomePage()
+    {
+        window.location.href="homePage.html"
+        countUserActions()
+    }
+    function logout()
+    {
+        window.location.href="login.html"
+        countUserActions()
+    }
+</script>
+
+<body onload="addShiftEmployee()">
+    <div class="background2" align="center"  style="color: aliceblue;">
+    
+    <div>
+        <div style="float: left">
+            <button onclick="GoTOHomePage()" class="btn btn-primary">Go to home page</button>
+        </div>
+        <div style="float: right" >
+            <button onclick="logout()"class="btn btn-danger" >Logout</button>
+        </div>
+    </div><br> <br>
+
+    <h1 style="color: black;" id="nameUser"></h1>
+
+    First name:<input type="text" id="fname" readonly class="form-control" style="width: 200px"><br>
+    Last name:<input type="text" id="lname" readonly class="form-control" style="width: 200px"><br>
+    Start Work Year: <input type="text" id="swy" readonly class="form-control" style="width: 200px"> <br>
+    Current department: <span id="cdname">Current department!!!!</span> <br>
+
+    <h3>Add shift</h3>
+    <!-- Date: <input type="date" id="date"> <br>
+    Start time: <input type="time" id="stime"><br>
+    End time: <input type="time" id="etime"><br> -->
+
+<select name="" id="sel" onchange="idShif()" class="form-select" aria-label="Default select example" style="width: 500px">
+    <option value="">Select shift</option>
+</select>
+    <button onclick="AddShift()" class="btn btn-success" style="height: 40px;">Add shift</button>
+
+</body>
+
+<head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    /> 
+    <link rel="stylesheet" href="ZDesign.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <script src="userActions.js"></script>
+</head>
+</html>
+

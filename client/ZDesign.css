@@ -1,0 +1,22 @@
+body
+{
+    margin: 0px;
+    padding: 0px;
+}
+
+.background2
+{
+    
+    background-image: url(photo2.webp);
+    background-size:cover ;
+    background-repeat: no-repeat;
+    height:100vh ;
+}
+.background3
+{
+    
+    background-image: url(photo2.webp);
+    background-size:cover ;
+    background-repeat: no-repeat;
+    height:160vh ;
+}
