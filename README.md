@@ -15,7 +15,7 @@ The languages i used for this project are:
 Here's some screenshots from the project (Feb 13th 2022):
 
 Login:<br/>
- Default    Incorrect User    No more ations <br/>
+ Default, Incorrect User, No more ations <br/>
  <img src="https://user-images.githubusercontent.com/129841851/230313249-9f32a4fb-19cd-4d19-92a7-75a128c7393e.png" width="300px" height="200">
  <img src="https://user-images.githubusercontent.com/129841851/230316317-f8d7be4d-a4fe-403e-9f9b-a6198d528f85.png" width="300px"  height="200">
  <img src="https://user-images.githubusercontent.com/129841851/230310992-dcc9a2de-3aa3-4da6-91b8-f36f1cb48aa7.png" width="300px" height="200">
