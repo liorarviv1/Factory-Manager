@@ -18,6 +18,11 @@ Login:<br/>
  Default, Incorrect User, No more ations <br/>
  <img src="https://user-images.githubusercontent.com/129841851/230313249-9f32a4fb-19cd-4d19-92a7-75a128c7393e.png" width="300px" height="200">
  <img src="https://user-images.githubusercontent.com/129841851/230316317-f8d7be4d-a4fe-403e-9f9b-a6198d528f85.png" width="300px"  height="200">
- <img src="https://user-images.githubusercontent.com/129841851/230310992-dcc9a2de-3aa3-4da6-91b8-f36f1cb48aa7.png" width="300px" height="200">
+ <img src="https://user-images.githubusercontent.com/129841851/230310992-dcc9a2de-3aa3-4da6-91b8-f36f1cb48aa7.png" width="300px" height="200"> <br/>
+ 
+ Departments:<br/>
+ <img src="https://user-images.githubusercontent.com/129841851/230355794-180c7c05-cd36-4f2c-bc9c-7450f9204430.png" width="400px" height="200" >
+ <img src="https://user-images.githubusercontent.com/129841851/230355934-5b1f4a8a-4cc2-42f8-b7f6-173adbd72966.png" width="400px" height="200">
+ <img src="https://user-images.githubusercontent.com/129841851/230356897-8d136919-c98d-42dc-8840-a9f0df487c26.png" width="300px">
 
 
