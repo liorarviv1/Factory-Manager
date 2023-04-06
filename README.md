@@ -18,19 +18,19 @@ Login:
  Default, Incorrect User, No more ations. <br/>
  <img src="https://user-images.githubusercontent.com/129841851/230313249-9f32a4fb-19cd-4d19-92a7-75a128c7393e.png" width="300px" height="200">
  <img src="https://user-images.githubusercontent.com/129841851/230316317-f8d7be4d-a4fe-403e-9f9b-a6198d528f85.png" width="300px"  height="200">
- <img src="https://user-images.githubusercontent.com/129841851/230310992-dcc9a2de-3aa3-4da6-91b8-f36f1cb48aa7.png" width="300px" height="200"> <br/>
+ <img src="https://user-images.githubusercontent.com/129841851/230310992-dcc9a2de-3aa3-4da6-91b8-f36f1cb48aa7.png" width="300px" height="200"> <br/><br/>
  
  Departments: Department page, Edite Department, Add Department.
  <br/>
  <img src="https://user-images.githubusercontent.com/129841851/230355794-180c7c05-cd36-4f2c-bc9c-7450f9204430.png" width="400px"  >
  <img src="https://user-images.githubusercontent.com/129841851/230355934-5b1f4a8a-4cc2-42f8-b7f6-173adbd72966.png" width="400px" >
- <img src="https://user-images.githubusercontent.com/129841851/230356897-8d136919-c98d-42dc-8840-a9f0df487c26.png" width="400px" > <br/>
+ <img src="https://user-images.githubusercontent.com/129841851/230356897-8d136919-c98d-42dc-8840-a9f0df487c26.png" width="400px" > <br/><br/>
  
- Employees:Employees shift, Edit employee, Add shift to employee.
- 
-<img src="https://user-images.githubusercontent.com/129841851/230358700-ba983a2f-4ec5-436f-bd27-0b06f2803bf8.png" width="300px">
-<img src="https://user-images.githubusercontent.com/129841851/230358824-8f4e0ac3-41df-43e7-a372-2447ada4e890.png" width="300px">
-<img src="https://user-images.githubusercontent.com/129841851/230359076-0aa2b98d-4b84-4a74-9694-f4f4f9d0c50c.png" width="300px"><br/>
+ Employees:
+ Employees shift, Edit employee, Add shift to employee.<br/>
+<img src="https://user-images.githubusercontent.com/129841851/230358700-ba983a2f-4ec5-436f-bd27-0b06f2803bf8.png" width="400px">
+<img src="https://user-images.githubusercontent.com/129841851/230358824-8f4e0ac3-41df-43e7-a372-2447ada4e890.png" width="400px">
+<img src="https://user-images.githubusercontent.com/129841851/230359076-0aa2b98d-4b84-4a74-9694-f4f4f9d0c50c.png" width="400px"><br/>
  
  
 
