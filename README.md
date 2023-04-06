@@ -6,10 +6,12 @@ The website is linked to a .NET server which is connected to my SQL Server Data 
 
 The languages i used for this project are:
 
-HTML
-JavaScript
-C#
-CSS (future versions)
+<ul>
+    <li>HTML</li>
+    <li>JavaScript</li>
+    <li>C#</li>
+    <li>CSS (future versions)</li>
+</ul>
 Here's some screenshots from the project (Feb 13th 2022):
 
 Login:
