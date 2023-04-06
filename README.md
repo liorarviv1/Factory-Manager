@@ -32,6 +32,12 @@ Login:
 <img src="https://user-images.githubusercontent.com/129841851/230358824-8f4e0ac3-41df-43e7-a372-2447ada4e890.png" width="400px">
 <img src="https://user-images.githubusercontent.com/129841851/230359076-0aa2b98d-4b84-4a74-9694-f4f4f9d0c50c.png" width="400px"><br/>
  
+  Seacrch Employee:<br/>
+  <img src="https://user-images.githubusercontent.com/129841851/230373975-8e4cedef-b4d7-48a8-8b60-c8a7a467828f.png" width="400px"><br/>
+  
+ Shifts:<br/>
+ <img src="https://user-images.githubusercontent.com/129841851/230374707-439a7371-6129-402b-8c66-b71297b77558.png" width="400px"><br/>
+ <img src="https://user-images.githubusercontent.com/129841851/230374745-6cbc7c42-eef3-4e63-9a00-18928caed55c.png" width="400px"><br/>
  
 
 
