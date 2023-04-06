@@ -10,6 +10,6 @@ HTML
 JavaScript
 C#
 CSS (future versions)
-Here's some screenshots from the project (July 13th 2021):
+Here's some screenshots from the project (Feb 13th 2022):
 
 Login:
