@@ -15,8 +15,9 @@ The languages i used for this project are:
 Here's some screenshots from the project (Feb 13th 2022):
 
 Login:<br/>
-<div style="width: 150px;">
-![login No more ations](https://user-images.githubusercontent.com/129841851/230310992-dcc9a2de-3aa3-4da6-91b8-f36f1cb48aa7.png)
+ <img src="https://user-images.githubusercontent.com/129841851/230313249-9f32a4fb-19cd-4d19-92a7-75a128c7393e.png" width="350px">
+ <img src="https://user-images.githubusercontent.com/129841851/230313357-03277241-1b9a-47df-b94a-12e6b2440f74.png" width="350px">
 
-</div>
+ <img src="https://user-images.githubusercontent.com/129841851/230310992-dcc9a2de-3aa3-4da6-91b8-f36f1cb48aa7.png" width="350px">
+
 
