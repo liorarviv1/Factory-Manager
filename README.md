@@ -13,8 +13,8 @@ The languages i used for this project are:
     <li>JavaScript</li>
     <li>C#</li>
     <li>CSS (future versions)</li>
-</ul> <br/>
-# How To Run
+</ul>
+<h3>How To Run</h3>
 <ul>
  <li>Open solution in Visual Studio 2019</li>
  <li>Set .Web project as Startup Project and build the project</li>
